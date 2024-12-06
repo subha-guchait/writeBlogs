@@ -26,3 +26,14 @@ exports.getBlogs = async (req, res, next) => {
     res.status(500).json({ err: err });
   }
 };
+
+exports.deleteBlog = async (req, res, next) => {
+  try {
+    const blogId = req.params.blogId;
+    const blog = await Comment.findByPk(blogId);
+    await blog.destroy();
+    res.status(200).json({ message: "blog deleted sucessfully" });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
